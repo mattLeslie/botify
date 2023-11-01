@@ -1,2 +1,0 @@
-# botify
-spotify bot
