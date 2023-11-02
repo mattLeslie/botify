@@ -1,10 +1,12 @@
 import { Routes, Route} from "react-router-dom";
+import AuthorizationButton from "../components/AuthButton";
 
 function App() {
+  
   return (      
     <main>
       <Routes>
-          <Route path="/" element={<button onClick={()=>{console.log("test")}}>click me!</button>} />
+          <Route path="/" element={<AuthorizationButton/>} />
       </Routes>
     </main>
   );
