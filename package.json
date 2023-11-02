@@ -1,0 +1,29 @@
+{
+  "name": "botify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattLeslie/botify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattLeslie/botify/issues"
+  },
+  "homepage": "https://github.com/mattLeslie/botify#readme",
+  "dependencies": {
+    "@types/react-router": "^5.1.20",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.2.0",
+    "react-router-dom": "^6.18.0"
+  }
+}
