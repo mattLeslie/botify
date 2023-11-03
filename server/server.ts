@@ -1,3 +1,5 @@
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
@@ -6,10 +8,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(cors({origin: 'http://localhost:3000', credentials: true}));
 
-// Spotify API credentials
-const CLIENT_ID = '97ab3543c0a34e20b7d6e1032addff22';
-const CLIENT_SECRET = '6312ad623911499d90dfde2eb32a00df';
-const REDIRECT_URI = 'http://localhost:5000/callback'; // Update with your redirect URI
+var ACCESS_TOKEN = "";
+var REFRESH_TOKEN = "";
+
 
 // Routes
 app.get('/callback', async (req, res) => {
@@ -20,13 +21,12 @@ app.get('/callback', async (req, res) => {
   const data = new URLSearchParams();
   data.append('grant_type', 'authorization_code');
   data.append('code', code);
-  data.append('redirect_uri', REDIRECT_URI);
+  if(process.env.REDIRECT_URI == undefined){process.env.REDIRECT_URI = "http://localhost:5000/callback"}
+  data.append('redirect_uri', process.env.REDIRECT_URI);
 
-  const authHeader = `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`;
+  const authHeader = `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`;
 
   try {
-    console.log("second request");
-
     const response = await axios.post(tokenUrl, data, {
       headers: {
         'Authorization': authHeader,
@@ -35,17 +35,35 @@ app.get('/callback', async (req, res) => {
     });
 
     const { access_token, refresh_token } = response.data;
+    ACCESS_TOKEN = access_token;
+    REFRESH_TOKEN = refresh_token;
+
+    res.redirect("http://localhost:3000/test");
 
     // Step 3: Use the access token to make requests to Spotify's API
     // For example, you can make a request to get the user's profile info:
-    console.log("third request");
+  //   console.log("third req")
+  //   const userProfile = await axios.get('https://api.spotify.com/v1/me', {
+  //     headers: { 'Authorization': `Bearer ${access_token}` },
+  //   });
 
-    const userProfile = await axios.get('https://api.spotify.com/v1/me', {
-      headers: { 'Authorization': `Bearer ${access_token}` },
+  //   res.json({ access_token, refresh_token, user: userProfile.data });
+  } catch (error) {
+    console.error('Error:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/test', async (req, res) =>{
+
+  try{
+   const userProfile = await axios.get('https://api.spotify.com/v1/me', {
+      headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
     });
 
-    res.json({ access_token, refresh_token, user: userProfile.data });
-  } catch (error) {
+    res.json({ ACCESS_TOKEN, REFRESH_TOKEN, user: userProfile.data });
+  }
+  catch (error) {
     console.error('Error:', error.response?.data || error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
