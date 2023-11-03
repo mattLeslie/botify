@@ -1,0 +1,36 @@
+{
+    "collaborative": false,
+    "description": "API testing playlist",
+    "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/2bFYX0VkiJlCccs0ZU0dy0"
+    },
+    "href": "https://api.spotify.com/v1/playlists/2bFYX0VkiJlCccs0ZU0dy0",
+    "id": "2bFYX0VkiJlCccs0ZU0dy0",
+    "images": [
+        {
+            "height": null,
+            "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000bebbb3cda42f43a5d4fa39001e00",
+            "width": null
+        }
+    ],
+    "name": "Google Drive",
+    "owner": {
+        "display_name": "Michael/Matt Leslie",
+        "external_urls": {
+            "spotify": "https://open.spotify.com/user/1279076752"
+        },
+        "href": "https://api.spotify.com/v1/users/1279076752",
+        "id": "1279076752",
+        "type": "user",
+        "uri": "spotify:user:1279076752"
+    },
+    "primary_color": null,
+    "public": true,
+    "snapshot_id": "OCwyYTNkYWQzOGIwMGRlOWY4NmIyM2NmNjJhMWMwZjg2NDAyZGNhNGZm",
+    "tracks": {
+        "href": "https://api.spotify.com/v1/playlists/2bFYX0VkiJlCccs0ZU0dy0/tracks",
+        "total": 2
+    },
+    "type": "playlist",
+    "uri": "spotify:playlist:2bFYX0VkiJlCccs0ZU0dy0"
+}

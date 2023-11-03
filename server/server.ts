@@ -38,36 +38,46 @@ app.get('/callback', async (req, res) => {
     ACCESS_TOKEN = access_token;
     REFRESH_TOKEN = refresh_token;
 
-    res.redirect("http://localhost:3000/test");
+    res.redirect("http://localhost:3000/dashboard");
 
-    // Step 3: Use the access token to make requests to Spotify's API
-    // For example, you can make a request to get the user's profile info:
-  //   console.log("third req")
-  //   const userProfile = await axios.get('https://api.spotify.com/v1/me', {
-  //     headers: { 'Authorization': `Bearer ${access_token}` },
-  //   });
-
-  //   res.json({ access_token, refresh_token, user: userProfile.data });
   } catch (error) {
     console.error('Error:', error.response?.data || error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-app.get('/test', async (req, res) =>{
 
-  try{
-   const userProfile = await axios.get('https://api.spotify.com/v1/me', {
-      headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
-    });
+app.get('/getAllUserPlaylists', async (req, res) =>{
 
-    res.json({ ACCESS_TOKEN, REFRESH_TOKEN, user: userProfile.data });
-  }
-  catch (error) {
-    console.error('Error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  const url = "https://api.spotify.com/v1/me/playlists?offset=0&limit=10";
+  const allUserPlaylists = await makeAPICall(url, res);
+  res.json({ playlists: allUserPlaylists.data });
+
 });
+
+app.get('/getPlaylistTracks', async (req, res) =>{
+
+  const url = "https://api.spotify.com/v1/playlists/2bFYX0VkiJlCccs0ZU0dy0/tracks";
+  const playlistTracks = await makeAPICall(url, res);
+  res.json({ playlistTracks: playlistTracks.data });
+
+});
+
+
+
+const makeAPICall = async function(url, res){
+  try{
+    const payload = await axios.get(url, {
+       headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
+     });
+ 
+     return payload;
+   }
+   catch (error) {
+     console.error('Error:', error.response?.data || error.message);
+     res.status(500).json({ error: 'Internal Server Error' });
+   }
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
