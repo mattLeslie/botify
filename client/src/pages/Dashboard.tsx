@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { MoonLoader } from "react-spinners";
 import GridFrame from "../components/GridFrame";
 import PlaylistCard from "../components/PlaylistCard";
+import PlaylistControl from "./PlaylistControl";
+import Playlist from "../types/Playlist";
+
 
 const Dashboard = () => {
-
+  
   const [playlistCards, setPlaylistCards] = useState<any>(null);
   const [error, setError] = useState<boolean>(false);
+  const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
 
   useEffect(() => {
     fetchPlaylistData();
@@ -22,6 +26,7 @@ const Dashboard = () => {
       massagePlaylistData(jsonData);
     } catch (error) {
       console.error('Error:', error);
+      setError(true);
     }
   }
 
@@ -33,10 +38,14 @@ const Dashboard = () => {
     const { playlists : {items} } = jsonData;
 
     const playlistArray = items.map((item: any) => {
-      const img_url = item.images[0].url;
-      const title = item.name;
-      const id = item.id;
-      return <PlaylistCard id={id} title={title} image_url={img_url}/>;
+      let playlist = {} as Playlist;
+      playlist.image_url = item.images[0].url; 
+      playlist.name = item.name;
+      playlist.id = item.id;
+
+      console.log(playlist);
+
+      return <PlaylistCard playlist={playlist} selectCard={setSelectedPlaylist}/>;
     })
     setPlaylistCards(playlistArray);
   }
@@ -44,13 +53,16 @@ const Dashboard = () => {
   return (      
     <main>
         {error ?<div>Error loading page! Refresh and try again.</div> :         
-        
         <div className="w-[100%]">
           {!playlistCards ? <MoonLoader/> :
-              <div className="w-[66%] m-auto">
-                <GridFrame elementList={playlistCards}/>
-              </div>
-            }
+            <div className="w-[66%] m-auto">
+              {!selectedPlaylist ? 
+                <GridFrame elementList={playlistCards}/> 
+                : 
+                <PlaylistControl goBack={setSelectedPlaylist} playlist={selectedPlaylist}/>
+              }
+            </div>
+          }
         </div>
         }
     </main>
