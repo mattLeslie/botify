@@ -46,10 +46,8 @@ const Dashboard = () => {
         {error ?<div>Error loading page! Refresh and try again.</div> :         
         
         <div className="w-[100%]">
-    <h1 className="underline">
-      Hello world!
-    </h1>            {!playlistCards ? <MoonLoader/> :
-              <div className="w-1/2">
+          {!playlistCards ? <MoonLoader/> :
+              <div className="w-[66%] m-auto">
                 <GridFrame elementList={playlistCards}/>
               </div>
             }
