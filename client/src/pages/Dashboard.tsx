@@ -3,10 +3,10 @@ import { MoonLoader } from "react-spinners";
 import GridFrame from "../components/GridFrame";
 import PlaylistCard from "../components/PlaylistCard";
 
-
 const Dashboard = () => {
 
   const [playlistCards, setPlaylistCards] = useState<any>(null);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     fetchPlaylistData();
@@ -16,7 +16,7 @@ const Dashboard = () => {
     try{
       const response = await fetch('/getAllUserPlaylists');
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok. Code: ' + response.status);
       }
       const jsonData = await response.json();
       massagePlaylistData(jsonData);
@@ -43,11 +43,18 @@ const Dashboard = () => {
   
   return (      
     <main>
-        <div>
-            {!playlistCards ? <MoonLoader/> :
-              <GridFrame elementList={playlistCards}/>
+        {error ?<div>Error loading page! Refresh and try again.</div> :         
+        
+        <div className="w-[100%]">
+    <h1 className="underline">
+      Hello world!
+    </h1>            {!playlistCards ? <MoonLoader/> :
+              <div className="w-1/2">
+                <GridFrame elementList={playlistCards}/>
+              </div>
             }
         </div>
+        }
     </main>
   );
 }

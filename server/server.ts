@@ -49,7 +49,7 @@ app.get('/callback', async (req, res) => {
 
 app.get('/getAllUserPlaylists', async (req, res) =>{
 
-  const url = "https://api.spotify.com/v1/me/playlists?offset=0&limit=10";
+  const url = `https://api.spotify.com/v1/me/playlists?offset=0&limit=${process.env.PL_LIMIT}`;
   const allUserPlaylists = await makeAPICall(url, res);
   res.json({ playlists: allUserPlaylists.data });
 

@@ -1,4 +1,4 @@
-const AuthorizationButton = () => {
+const AuthButton = () => {
   const handleAuthorization = async () => {
     try {
         const scopes = "user-read-private user-read-email playlist-read-private playlist-read-collaborative"
@@ -10,13 +10,11 @@ const AuthorizationButton = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleAuthorization}>Authorize with Spotify</button>
-    </div>
+    <button onClick={handleAuthorization}>Authorize with Spotify</button>
   );
 };
 
-export default AuthorizationButton;
+export default AuthButton;
 
 
 
