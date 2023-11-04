@@ -21,8 +21,8 @@ Eventually I'd like to use this project as a base for a secondary app integrated
 * Redirect URIs -> http://localhost:5000/callback
 * *note these can actually be whatever you'd like, just make sure you update your environment variables accordingly*
 3. Clone the repo
-4. Create a .env file in the root directory and paste: 
-`
+4. Create a .env file in the root directory and paste inside: 
+```
 # Friend-Curation app id
 CLIENT_ID="*replace with your app's id*"
 
@@ -37,7 +37,7 @@ REDIRECT_URI="*should be the same redirect uri from step 2*"
 # Maximum number of playlists returned in payload from single
 # Spotify API call. Range: 1-50
 PL_LIMIT=6
-`
+```
 5. Navigate to botify/client/ and run `npm run start` to start the react client. It should hopefully open in browser.
 6. In a separate terminal window, navigate to botify/server/ and run `node server.ts` to start the express server. You should get a message in your terminal that the server has started.
 7. Great work! The application should be running locally and you'll be able to use it if you've set up your environment variables correctly. 
