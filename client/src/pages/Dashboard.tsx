@@ -4,6 +4,7 @@ import GridFrame from "../components/GridFrame";
 import PlaylistCard from "../components/PlaylistCard";
 import PlaylistControl from "./PlaylistControl";
 import Playlist from "../types/Playlist";
+import Footer from "../components/Footer";
 
 
 const Dashboard = () => {
@@ -54,9 +55,9 @@ const Dashboard = () => {
   return (      
     <main>
         {error ?<div>Error loading page! Refresh and try again.</div> :         
-        <div className="w-[100%]">
+        <div className="w-[66%] m-auto">
           {!playlistCards ? <MoonLoader/> :
-            <div className="w-[66%] m-auto">
+            <div className="w-[100%] m-auto">
               <div hidden={selectedPlaylist ? true : false}>
                 <GridFrame elementList={playlistCards}/> 
               </div>
@@ -67,10 +68,9 @@ const Dashboard = () => {
               }
             </div>
           }
+          <Footer/>
         </div>
-        
         }
-        
     </main>
   );
 }

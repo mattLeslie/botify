@@ -63,3 +63,17 @@ Will eventually need a dedicated cloud server instead of my laptop
 in the meantime I need to set up the cron job to recover on server
 startup... shouldn't be a huge problem since the bot will validate
 against current spotify data
+
+
+
+## TODO:
+1. Stop my node server from crashing all the time
+2. Style login page
+3. Center and embiggen loading spinners
+4. Allow songs to be deleted from playlists
+5. Create the bot dasboard
+6. Add bot dashboard functionality
+7. Restyle playlist selection dashboard
+8. Apply consistent theming to whole app
+9. ???
+10. profit
