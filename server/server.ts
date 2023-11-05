@@ -61,8 +61,7 @@ app.get('/getAllUserPlaylists', async (req, res) =>{
 // TODO: don't return until all data has been retrieved 
 // (max request limit is 100 I think?)
 app.get('/getPlaylistTracks', async (req, res) =>{
-
-  const url = "https://api.spotify.com/v1/playlists/2bFYX0VkiJlCccs0ZU0dy0/tracks";
+  const url = `https://api.spotify.com/v1/playlists/${req.query.id}/tracks`;
   const playlistTracks = await makeAPICall(url, res);
   res.json({ playlistTracks: playlistTracks.data });
 

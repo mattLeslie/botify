@@ -47,6 +47,7 @@ const Dashboard = () => {
     })
     setPlaylistCards(playlistArray);
   }
+
   
   return (      
     <main>
@@ -54,15 +55,20 @@ const Dashboard = () => {
         <div className="w-[100%]">
           {!playlistCards ? <MoonLoader/> :
             <div className="w-[66%] m-auto">
-              {!selectedPlaylist ? 
+              <div hidden={selectedPlaylist ? true : false}>
                 <GridFrame elementList={playlistCards}/> 
-                : 
+              </div>
+              {!selectedPlaylist ? 
+                <></>
+                  : 
                 <PlaylistControl goBack={setSelectedPlaylist} playlist={selectedPlaylist}/>
               }
             </div>
           }
         </div>
+        
         }
+        
     </main>
   );
 }
