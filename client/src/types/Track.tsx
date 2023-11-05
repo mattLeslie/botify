@@ -9,6 +9,7 @@ type Track = {
     id: string;
     name: string;
     added_at: string;
+    added_by: string;
 
     // allows listening to 30 second playback in browser
     preview_url: string;
