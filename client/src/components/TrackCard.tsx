@@ -51,8 +51,8 @@ const TrackCard = (props: TrackCardProps) => {
                     </div>
                     <div className="w-[100%] px-2 py-1 flex flex-col">
                         <div className="h-[100%] font-thin"></div>
-                        <div className="h-[100%] font-thin">Added by {props.track.added_by}</div>
-                        <div className="h-[100%] font-thin">{calculateDiff()}</div>
+                        <div className="h-[100%] line-clamp-1 font-thin">Added by {props.track.added_by}</div>
+                        <div className="h-[100%] line-clamp-1 font-thin">{calculateDiff()}</div>
                     </div>
                     <div className="flex items-center mx-2">
                         <div className="cursor-pointer flex flex-col items-center border-2 border-red-200 rounded-lg 

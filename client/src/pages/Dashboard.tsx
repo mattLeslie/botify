@@ -37,7 +37,7 @@ const Dashboard = () => {
     // items contains each playlist owned by user
     const { playlists : {items} } = jsonData;
 
-    console.log(items)
+    // console.log(items)
 
     const playlistArray = items.map((item: any) => {
       let playlist = {} as Playlist;

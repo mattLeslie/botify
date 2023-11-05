@@ -120,13 +120,13 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                   <div className="h-[100%]"></div>
                 </div>
                 <div className="w-[100%] h-[100%] flex flex-col pt-4 pb-2 overflow-hidden">
-                  <div className="flex flex-row justify-between items-center w-[95%] mb-6">
-                    <p className="text-2xl font-bold">{props.playlist.name}</p>
-                    <p className="text-xl font-light">{props.playlist.owner}</p>
+                  <div className="flex flex-row justify-between items-center w-[95%] mb-2">
+                    <p className="text-3xl font-bold">{props.playlist.name}</p>
+                    {/* <p className="text-xl font-light">{props.playlist.owner}</p> */}
                   </div>
                   <div className="flex flex-row justify-between items-center w-[95%]">
                     <p className="text-2xl font-light">Tracks</p>
-                    <div className="border rounded-lg border-400-gray w-[20%] px-4 ">Search</div>
+                    <div className="border font-light line-clamp-1 rounded-lg border-400-gray w-[20%] px-4 ">Search</div>
                   </div>
                   <div className="w-[95%] overflow-scroll flex flex-col rounded-md border-2 divide-y border-400-gray">
                     {tracks.map(function(val: Track, index: number){
