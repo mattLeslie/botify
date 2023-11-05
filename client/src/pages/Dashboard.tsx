@@ -43,8 +43,6 @@ const Dashboard = () => {
       playlist.name = item.name;
       playlist.id = item.id;
 
-      console.log(playlist);
-
       return <PlaylistCard playlist={playlist} selectCard={setSelectedPlaylist}/>;
     })
     setPlaylistCards(playlistArray);

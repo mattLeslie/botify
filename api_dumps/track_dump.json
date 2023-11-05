@@ -1,0 +1,49 @@
+// Only the data I've deemed necessary included below (there's lots more to be had)
+
+{
+    "added_at": "2023-11-02T21:52:24Z",
+    "track": {
+      "album": {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1vzqa9wcGcflSTyVbQPRFE"
+        },
+        "href": "https://api.spotify.com/v1/albums/1vzqa9wcGcflSTyVbQPRFE",
+        "id": "1vzqa9wcGcflSTyVbQPRFE",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273468aaba3c95935d523c3ddcf",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02468aaba3c95935d523c3ddcf",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851468aaba3c95935d523c3ddcf",
+            "width": 64
+          }
+        ],
+        "name": "Blue Skies"
+      },
+      "artists": [
+        {
+          "external_urls": {
+            "spotify": "https://open.spotify.com/artist/6yzuBFtT6dK2aQMZJZtcB1"
+          },
+          "href": "https://api.spotify.com/v1/artists/6yzuBFtT6dK2aQMZJZtcB1",
+          "id": "6yzuBFtT6dK2aQMZJZtcB1",
+          "name": "Dehd"
+        }
+      ],
+      "external_urls": {
+        "spotify": "https://open.spotify.com/track/0atclF6Pp5MffEEi7CSFlE"
+      },
+      "href": "https://api.spotify.com/v1/tracks/0atclF6Pp5MffEEi7CSFlE",
+      "id": "0atclF6Pp5MffEEi7CSFlE",
+      "name": "Bad Love",
+      "preview_url": "https://p.scdn.co/mp3-preview/0303dea95abfa781475c6c2f496879dfefded7cb?cid=97ab3543c0a34e20b7d6e1032addff22",
+    }
+  }

@@ -47,6 +47,8 @@ app.get('/callback', async (req, res) => {
 });
 
 
+// TODO: don't return until all data has been retrieved 
+// (max request limit is 50)
 app.get('/getAllUserPlaylists', async (req, res) =>{
 
   const url = `https://api.spotify.com/v1/me/playlists?offset=0&limit=${process.env.PL_LIMIT}`;
@@ -55,6 +57,9 @@ app.get('/getAllUserPlaylists', async (req, res) =>{
 
 });
 
+
+// TODO: don't return until all data has been retrieved 
+// (max request limit is 100 I think?)
 app.get('/getPlaylistTracks', async (req, res) =>{
 
   const url = "https://api.spotify.com/v1/playlists/2bFYX0VkiJlCccs0ZU0dy0/tracks";
