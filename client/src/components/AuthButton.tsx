@@ -10,7 +10,12 @@ const AuthButton = () => {
   };
 
   return (
-    <button onClick={handleAuthorization}>Authorize with Spotify</button>
+    <div onClick={handleAuthorization}
+         className="cursor-pointer rounded-xl flex justify-center w-[50%] bg-[#1ed760] hover:scale-105 hover:bg-[#1fdf64] active:bg-[#169c46]">
+      <div className="flex flex-col justify-center py-4">
+        <div onClick={handleAuthorization}>Log In with Spotify</div>
+      </div>
+    </div>
   );
 };
 

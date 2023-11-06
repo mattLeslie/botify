@@ -7,7 +7,7 @@ const Footer = () => {
                 </div>
             </div>
         </div>
-        <div className="flex justify-center mb-4 text-right text-gray-400 text-[10px]">
+        <div className="flex justify-center mb-4 text-right text-[10px]">
             <div className="w-[100%]">
                 <span>built by matt leslie</span>
                 <p>2023</p>

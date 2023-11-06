@@ -1,6 +1,5 @@
 // displays Track details
 
-import { useEffect } from "react";
 import Track from "../types/Track";
 import moment from 'moment';
 moment().format();

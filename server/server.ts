@@ -6,14 +6,14 @@ const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.use(cors({origin: 'http://localhost:3000', credentials: true}));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 var ACCESS_TOKEN = "";
 var REFRESH_TOKEN = "";
 
-
 // Routes
 app.get('/callback', async (req, res) => {
+  console.log("starting auth sequence...")
   const code = req.query.code;
 
   // Step 2: Exchange the authorization code for an access token
@@ -21,7 +21,7 @@ app.get('/callback', async (req, res) => {
   const data = new URLSearchParams();
   data.append('grant_type', 'authorization_code');
   data.append('code', code);
-  if(process.env.REDIRECT_URI == undefined){process.env.REDIRECT_URI = "http://localhost:5000/callback"}
+  if (process.env.REDIRECT_URI == undefined) { process.env.REDIRECT_URI = "http://localhost:5000/callback" }
   data.append('redirect_uri', process.env.REDIRECT_URI);
 
   const authHeader = `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`;
@@ -46,42 +46,51 @@ app.get('/callback', async (req, res) => {
   }
 });
 
-
 // TODO: don't return until all data has been retrieved 
 // (max request limit is 50)
-app.get('/getAllUserPlaylists', async (req, res) =>{
-
+app.get('/getAllUserPlaylists', async (req, res, next) => {
+  console.log("calling /getAllUserPlaylists...")
   const url = `https://api.spotify.com/v1/me/playlists?offset=0&limit=${process.env.PL_LIMIT}`;
-  const allUserPlaylists = await makeAPICall(url, res);
-  res.json({ playlists: allUserPlaylists.data });
+  try {
+    const payload = await axios.get(url, {
+      headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
+    });
+   
+    res.json({ playlists: payload.data });
+  } catch (err) {
+    next(err)
+  }
 
 });
 
 
 // TODO: don't return until all data has been retrieved 
 // (max request limit is 100 I think?)
-app.get('/getPlaylistTracks', async (req, res) =>{
+app.get('/getPlaylistTracks', async (req, res, next) => {
+  console.log("calling /getPlaylistTracks...")
   const url = `https://api.spotify.com/v1/playlists/${req.query.id}/tracks`;
-  const playlistTracks = await makeAPICall(url, res);
-  res.json({ playlistTracks: playlistTracks.data });
+  try {
+    const payload = await axios.get(url, {
+      headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
+    });
+    res.json({ playlistTracks: payload.data });
 
+  } catch (err) {
+    next(err)
+  }
 });
 
-
-
-const makeAPICall = async function(url, res){
-  try{
-    const payload = await axios.get(url, {
-       headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
-     });
- 
-     return payload;
-   }
-   catch (error) {
-     console.error('Error:', error.response?.data || error.message);
-     res.status(500).json({ error: 'Internal Server Error' });
-   }
-}
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  // Handle the error here
+  console.error('Error:', err.response || err.message);
+  if(err.response.status == 429){
+    const headers = err.response.headers;
+    console.log(headers)
+  }
+  // You can send a custom error response to the client
+  res.status(500).json({ error: err });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
