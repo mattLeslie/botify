@@ -48,10 +48,6 @@ const PlaylistControl = (props: PlaylistControlProps) => {
     }
   }
 
-  if(!tracks){
-    fetchPlaylistTracks();
-  }
-
   const massageTrackData = (jsonData: any) => {
 
     // extract tracklist
@@ -101,6 +97,11 @@ const PlaylistControl = (props: PlaylistControlProps) => {
     props.cachedTrackData.set(props.playlist.id, tracksArray)
   }
 
+  // initialize track list on load
+  if(!tracks){
+    fetchPlaylistTracks();
+  }
+
   return (
     <main>
       <div className="w-full h-screen max-h-screen overflow-none">
@@ -136,7 +137,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                 </div>
                 <div className="flex flex-row justify-between items-center w-[95%]">
                   <p className="text-2xl font-light">Tracks</p>
-                  <div className="border font-light line-clamp-1 rounded-lg border-400-gray w-[20%] px-4 ">Search</div>
+                  <input placeholder="Search..." type="text" id="search" name="search" className="outline-none focus:border-b focus:border-green-400 border-b-2 border-200-gray font-thin text-lg w-[25%]"/>
                 </div>
                 <div className="w-[95%] overflow-scroll flex flex-col rounded-md border-2 divide-y border-400-gray">
                   {!tracks ? 

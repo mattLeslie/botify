@@ -15,10 +15,15 @@ const Dashboard = () => {
   const [error, setError] = useState<boolean>(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
   const [cachedTrackData, setCachedTrackData] = useState<Map<string, Track[]>>(new Map<string, Track[]>);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     fetchPlaylistData();
   }, []);
+
+  const handleSearch = (event:any) => {
+    setSearchTerm(event.target.value)
+}
 
   const fetchPlaylistData = async () => {
     console.log("Fetching user playlists...")
@@ -50,7 +55,7 @@ const Dashboard = () => {
       playlist.name = item.name;
       playlist.id = item.id;
 
-      return <PlaylistCard playlist={playlist} selectCard={setSelectedPlaylist} />;
+      return <PlaylistCard playlist={playlist} selectCard={setSelectedPlaylist}/>;
     })
     setPlaylistCards(playlistArray);
   }
@@ -72,21 +77,20 @@ const Dashboard = () => {
                 Select a Playlist 
               </div>
             </div>
-            <div className="flex flex-row justify-between w-[90%] m-auto">
-              <div className="mt-4 py-2 rounded-2xl border-2 border-200-gray font-thin text-lg text-center px-12 mr-auto">
-                Search <span className="pl-1 text-2xl">&#x2315;</span>
-              </div>
-              <div className="cursor-pointer mt-4 py-2 rounded-2xl border-2 border-200-gray font-thin text-lg px-8 text-center ml-auto">
-                Filter &#x2442;
+            <div className="flex flex-row justify-between w-[85%] m-auto">
+              <input onChange={handleSearch} className="outline-none focus:border-b focus:border-green-400 mt-4 border-b-2 border-200-gray font-thin text-lg w-[25%] mr-auto"
+                placeholder="Search..." type="text" id="search" name="search" />
+              <div className="cursor-pointer mt-4 border-b-2 border-200-gray font-thin text-lg ml-auto">
+                filter &#x2442;
               </div>
             </div>
-            <div className="m-auto">
+            <div>
               {error ? <div className="mt-12">Error loading page! Refresh and try again.</div> :
                 <div>
                   {!playlistCards ? <Spinner size={150} /> :
                     <div className="w-[90%] m-auto">
                       <div hidden={selectedPlaylist ? true : false}>
-                        <GridFrame elementList={playlistCards} />
+                        <GridFrame elementList={playlistCards} searchTerm={searchTerm}/>
                       </div>
                     </div>
                   }
