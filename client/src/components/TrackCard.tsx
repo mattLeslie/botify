@@ -1,34 +1,23 @@
 // displays Track details
 
+import { useState } from "react";
 import Track from "../types/Track";
 import moment from 'moment';
 moment().format();
 
 type TrackCardProps = {
     track: Track;
-    playlist_id: string;
+    deleteTrack: ()=>any;
 }
 
 
 const TrackCard = (props: TrackCardProps) => {
 
-    const deleteTrack = async () => {
+    const [deleted, setDeleted] = useState<boolean>(false)
 
-        const data = {
-            tracks: [{uri: props.track.uri}],
-        };
-        try {
-            const response = await fetch(`/removeTracks?id=${props.playlist_id}&tracks=${JSON.stringify(data)}`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json',},
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok. Code: ' + response.status);
-            }
-            const jsonData = await response.json();
-        } catch (error) {
-            console.error('Error:', error);
-        }
+    const handleDelete = () =>{
+        props.deleteTrack();
+        setDeleted(true);
     }
 
     const calculateDiff = () => {
@@ -52,14 +41,14 @@ const TrackCard = (props: TrackCardProps) => {
             if (days > 0) { retString += ", " }
             retString += hours + " hours"
         }
-        else {
+        if(hours < 0 && days < 0) {
             retString += "< an hour"
         }
         return retString + " ago";
     }
 
     return (
-        <div className='w-[100%] m-auto min-h-[30%] max-h-[50%] overflow-hidden'>
+        <div hidden={deleted} className='w-[100%] m-auto min-h-[30%] max-h-[50%] overflow-hidden'>
 
             <div className="w-[100%] h-[100%] m-auto z-20">
                 <div className="flex h-[100%] w-[100%]">
@@ -74,7 +63,7 @@ const TrackCard = (props: TrackCardProps) => {
                         <div className="h-[100%] line-clamp-1 font-thin">Added by {props.track.added_by}</div>
                         <div className="h-[100%] line-clamp-1 font-thin">{calculateDiff()}</div>
                     </div>
-                    <div onClick={deleteTrack} className="flex items-center mx-2">
+                    <div onClick={handleDelete} className="flex items-center mx-2">
                         <div className="cursor-pointer flex flex-col items-center border-2 border-red-200 rounded-lg 
                                         text-center hover:bg-red-200 text-red-300 p-1 hover:text-red-500 active:opacity-50 transition">
                             <div className="font-light text-[24px]">&#9253; </div>

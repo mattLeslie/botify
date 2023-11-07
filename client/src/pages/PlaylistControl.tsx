@@ -23,11 +23,49 @@ type PlaylistControlProps = {
 
 const PlaylistControl = (props: PlaylistControlProps) => {
 
-  const [tracks, setTracks] = useState<any>(null);
+  const [tracks, setTracks] = useState<any>();
 
   useEffect(() => {
     window.scrollTo(0,0);
   }, []);
+
+  const deleteTrack = async (uri: string) => {
+
+    if(!window.confirm("Are you sure you want to delete this track?")){
+        return;
+    }
+
+    const data = {
+        tracks: [{uri: uri}],
+    };
+    try {
+        const response = await fetch(`/removeTracks?id=${props.playlist.id}&tracks=${JSON.stringify(data)}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json',},
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok. Code: ' + response.status);
+        }
+
+        let trackArray = props.cachedTrackData.get(props.playlist.id) as Track[];
+        if(trackArray == undefined){return;}
+        console.log("TRACK ARRAY")
+        console.log(trackArray)
+
+        for(let i = 0; i < trackArray.length; i++){
+          if(trackArray[i].uri == uri){
+            trackArray.splice(i, 1);
+            break;
+          }
+        }
+        setTracks(trackArray)
+        props.cachedTrackData.set(props.playlist.id, trackArray);
+        
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 
   const fetchPlaylistTracks = async () => {
     
@@ -54,7 +92,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
     const { playlistTracks: { items } } = jsonData;
 
     // for each track entry...
-    const tracksArray = items.map((item: any) => {
+    const tracksArray:Track[] = items.map((item: any) => {
       let track = {} as Track;
       let artists = [] as Artist[];
       let album = {} as Album;
@@ -146,7 +184,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                         <Spinner size={75}/>
                     </div> 
                     : 
-                    tracks.map(function (val: Track, index: number) {return <TrackCard track={val} playlist_id={props.playlist.id}/>})}
+                    tracks.map(function (val: Track, index: number) {return <TrackCard track={val} deleteTrack={()=>{deleteTrack(val.uri)}}/>})}
                 </div>
               </div>
             </div>
