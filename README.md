@@ -68,16 +68,20 @@ against current spotify data
 
 ## TODO:
 0. !!!IMPORTANT: Find a way to avoid hitting the rate limit! (The penalty box is no fun)
+    * As of 11/6:
+    - Caching track data on the dashboard to limit API calls
+    - Upgraded server output logs
 1. ~~Stop my node server from crashing all the time~~
 2. ~~Style login page~~
 3. ~~Center and embiggen loading spinners~~
 4. Allow songs to be deleted from playlists
-5. Create the bot dasboard
+5. Create the bot dashboard
 6. Add bot dashboard functionality
 7. Restyle playlist selection dashboard
 8. Apply consistent theming to whole app
-9. Make sure all data is being retrieved from API calls
+9. Make sure all data is being retrieved from API calls (side note: probably want to limit this to user input for songs etc.)
 10. Process playlist data to make sure that only playlists eligible for Botify are displayed (personally owned or collaborative)
 11. Make playlist dashboard loading snappier (stop using useEffect and render the elements we already know first, use spinner for song list)
 12. Add scroll to top when playlist dashboard is shown
 13. Make t&c button required on login page
+

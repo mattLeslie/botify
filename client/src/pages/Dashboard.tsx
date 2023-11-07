@@ -6,6 +6,7 @@ import Playlist from "../types/Playlist";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header";
+import Track from "../types/Track";
 
 
 const Dashboard = () => {
@@ -13,6 +14,7 @@ const Dashboard = () => {
   const [playlistCards, setPlaylistCards] = useState<any>(null);
   const [error, setError] = useState<boolean>(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
+  const [cachedTrackData, setCachedTrackData] = useState<Map<string, Track[]>>(new Map<string, Track[]>);
 
   useEffect(() => {
     fetchPlaylistData();
@@ -58,7 +60,7 @@ const Dashboard = () => {
     <main>
       <Header />
       <div className="w-[66%] flex flex-col justify-between m-auto h-screen">
-        {selectedPlaylist ? <PlaylistControl goBack={setSelectedPlaylist} playlist={selectedPlaylist} />
+        {selectedPlaylist ? <PlaylistControl cachedTrackData={cachedTrackData} goBack={setSelectedPlaylist} playlist={selectedPlaylist} />
           :
           <></>
         }

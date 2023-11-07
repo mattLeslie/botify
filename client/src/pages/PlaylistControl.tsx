@@ -1,7 +1,7 @@
 // Displays a playlist's tracks and provides tools
 // for the user to control bot actions and scheduling
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Playlist from "../types/Playlist";
 import Track from "../types/Track";
 import { MoonLoader } from "react-spinners";
@@ -14,6 +14,9 @@ import Spinner from "../components/Spinner";
 
 type PlaylistControlProps = {
   playlist: Playlist;
+  // Cache used to prevent excessive API calls when navigating 
+  // between multiple playlists on the dashboard
+  cachedTrackData: Map<string, Track[]>;
   goBack: (event: any) => void;
 }
 
@@ -22,19 +25,31 @@ const PlaylistControl = (props: PlaylistControlProps) => {
 
   const [tracks, setTracks] = useState<any>(null);
 
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, []);
 
   const fetchPlaylistTracks = async () => {
-    try {
-      console.log(props.playlist.id);
-      const response = await fetch(`/getPlaylistTracks?id=${props.playlist.id}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok. Code: ' + response.status);
-      }
-      const jsonData = await response.json();
-      massageTrackData(jsonData);
-    } catch (error) {
-      console.error('Error:', error);
+    
+    if(props.cachedTrackData.has(props.playlist.id)){
+      setTracks(props.cachedTrackData.get(props.playlist.id));
     }
+    else{
+      try {
+        const response = await fetch(`/getPlaylistTracks?id=${props.playlist.id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok. Code: ' + response.status);
+        }
+        const jsonData = await response.json();
+        massageTrackData(jsonData);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  }
+
+  if(!tracks){
+    fetchPlaylistTracks();
   }
 
   const massageTrackData = (jsonData: any) => {
@@ -83,22 +98,22 @@ const PlaylistControl = (props: PlaylistControlProps) => {
     })
 
     setTracks(tracksArray);
-
+    props.cachedTrackData.set(props.playlist.id, tracksArray)
   }
 
   return (
     <main>
       <div className="w-full h-screen max-h-screen overflow-none">
-        <div className="w-[100%] mt-[6%] h-[90%] m-auto rounded-2xl border-2 border-400-gray shadow-xl relative">
+        <div className="w-[100%] mt-[6%] h-[90%] m-auto rounded-2xl bg-gray-200 border-gray-200 border-2 shadow-xl relative">
           {/* EXIT button (back to playlist selection dashboard) */}
           <div onClick={() => { props.goBack(null) }}
-            className="absolute h-12 w-12 -right-4 -top-4 z-10 rounded-full border-2">
+            className="absolute h-12 w-12 -right-4 -top-4 z-50 rounded-full border-2">
             <img draggable="false" className="hover:opacity-50 active:opacity-100 cursor-pointer object-scale-down" src={exit_button_img}></img>
           </div>
           <div className="w-[100%] h-[100%] flex flex-col">
             {/* Tracks / Album Art Container */}
-            <div className="flex flex-row h-[50%] space-x-4 border-b-4 border-400-gray">
-              {/* Album art and details */}
+            <div className="bg-white z-10 rounded-b-3xl rounded-2xl shadow-md py-2 px-1 flex flex-row h-[50%] space-x-4">
+              {/* Album art */}
               <div className="flex flex-row items-start h-[100%] pb-2 pl-2 pt-2">
                 {/* Image container */}
                 <div className="aspect-square h-[100%]">
@@ -112,8 +127,8 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                     </div>
                   </div>
                 </div>
-                <div className="h-[100%]"></div>
               </div>
+              {/* Track container and details */}
               <div className="w-[100%] h-[100%] flex flex-col pt-4 pb-2 overflow-hidden">
                 <div className="flex flex-row justify-between items-center w-[95%] mb-2">
                   <p className="text-3xl font-bold">{props.playlist.name}</p>
@@ -124,9 +139,12 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                   <div className="border font-light line-clamp-1 rounded-lg border-400-gray w-[20%] px-4 ">Search</div>
                 </div>
                 <div className="w-[95%] overflow-scroll flex flex-col rounded-md border-2 divide-y border-400-gray">
-                  {!tracks ? <div className="h-screen"><Spinner size={75}/></div> : tracks.map(function (val: Track, index: number) {
-                    return <TrackCard track={val} />
-                  })}
+                  {!tracks ? 
+                    <div className="h-screen flex justify-center">
+                        <Spinner size={75}/>
+                    </div> 
+                    : 
+                    tracks.map(function (val: Track, index: number) {return <TrackCard track={val} />})}
                 </div>
               </div>
             </div>

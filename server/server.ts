@@ -67,7 +67,7 @@ app.get('/getAllUserPlaylists', async (req, res, next) => {
 // TODO: don't return until all data has been retrieved 
 // (max request limit is 100 I think?)
 app.get('/getPlaylistTracks', async (req, res, next) => {
-  console.log("calling /getPlaylistTracks...")
+  console.log(`calling /getPlaylistTracks on id=%s...`, req.query.id)
   const url = `https://api.spotify.com/v1/playlists/${req.query.id}/tracks`;
   try {
     const payload = await axios.get(url, {
