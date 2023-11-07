@@ -57,28 +57,47 @@ const Dashboard = () => {
   return (
     <main>
       <Header />
-      <div className="w-[66%] h-screen m-auto">
-        {error ? <div className="mt-12">Error loading page! Refresh and try again.</div> :
-          <div>
-            {!playlistCards ? <Spinner size={150} /> :
-              <div className="w-[100%] m-auto">
-                <div hidden={selectedPlaylist ? true : false}>
-                  <GridFrame elementList={playlistCards} />
-                </div>
-                {!selectedPlaylist ?
-                  <></>
-                  :
-                  <PlaylistControl goBack={setSelectedPlaylist} playlist={selectedPlaylist} />
-                }
-              </div>
-            }
-          </div>
+      <div className="w-[66%] flex flex-col justify-between m-auto h-screen">
+        {selectedPlaylist ? <PlaylistControl goBack={setSelectedPlaylist} playlist={selectedPlaylist} />
+          :
+          <></>
         }
-      </div>
-      <div className="w-[66%] m-auto">
-        <Footer></Footer>
-      </div>
 
+        <div hidden={selectedPlaylist ? true : false}>
+          <div className="mt-[6%] rounded-2xl shadow-xl flex flex-col border-2 border-400-gray py-8">
+            <div className="w-[100%] text-center">
+              <div className="font-thin text-4xl mx-auto border-b-2 border-200-gray pb-6">
+                Select a Playlist 
+              </div>
+            </div>
+            <div className="flex flex-row justify-between w-[90%] m-auto">
+              <div className="mt-4 py-2 rounded-2xl border-2 border-200-gray font-thin text-lg text-center px-12 mr-auto">
+                Search <span className="pl-1 text-2xl">&#x2315;</span>
+              </div>
+              <div className="cursor-pointer mt-4 py-2 rounded-2xl border-2 border-200-gray font-thin text-lg px-8 text-center ml-auto">
+                Filter &#x2442;
+              </div>
+            </div>
+            <div className="m-auto">
+              {error ? <div className="mt-12">Error loading page! Refresh and try again.</div> :
+                <div>
+                  {!playlistCards ? <Spinner size={150} /> :
+                    <div className="w-[90%] m-auto">
+                      <div hidden={selectedPlaylist ? true : false}>
+                        <GridFrame elementList={playlistCards} />
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+        </div>
+        <div className="w-[100%] m-auto mt-4">
+          <Footer />
+        </div>
+      </div>
     </main>
   );
 }

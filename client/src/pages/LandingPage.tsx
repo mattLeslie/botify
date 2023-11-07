@@ -10,10 +10,12 @@ const LandingPage = () => {
   return (
     <main>
       <Header />
-      <div className="w-[50%] flex flex-col justify-between m-auto h-screen">
-        <div className="mt-[12%] rounded-2xl shadow-xl flex flex-col border-4 border-400-gray py-8 gap-y-20">
-          <div className="font-bold text-4xl mx-auto">
-            <span className="font-thin">Welcome to </span>Botify
+      <div className="w-[66%] flex flex-col justify-between m-auto h-screen">
+        <div className="mt-[6%] rounded-2xl shadow-xl flex flex-col border-2 border-400-gray py-8 gap-y-20">
+          <div className="w-[100%] text-center">
+            <div className="font-bold text-4xl mx-auto border-b-2 border-200-gray pb-6">
+              <span className="font-thin">Welcome to </span>Botify
+            </div>
           </div>
           <div className="font-thin text-xl ml-[25%] mr-auto flex flex-col gap-y-4">
             <p>You can: </p>

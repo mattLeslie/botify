@@ -89,7 +89,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
   return (
     <main>
       <div className="w-full h-screen max-h-screen overflow-none">
-        <div className="w-[100%] mt-12 h-[90%] m-auto rounded-b-[40px] rounded-t-[16px] border border-400-gray shadow-md relative">
+        <div className="w-[100%] mt-[6%] h-[90%] m-auto rounded-2xl border-2 border-400-gray shadow-xl relative">
           {/* EXIT button (back to playlist selection dashboard) */}
           <div onClick={() => { props.goBack(null) }}
             className="absolute h-12 w-12 -right-4 -top-4 z-10 rounded-full border-2">
