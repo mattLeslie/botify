@@ -90,6 +90,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
       track.preview_url = item_data.preview_url;
       track.spotify_url = item_data.external_urls.spotify;
       track.added_by = item.added_by.id;
+      track.uri = item_data.uri;
       return track;
     })
 
@@ -145,7 +146,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                         <Spinner size={75}/>
                     </div> 
                     : 
-                    tracks.map(function (val: Track, index: number) {return <TrackCard track={val} />})}
+                    tracks.map(function (val: Track, index: number) {return <TrackCard track={val} playlist_id={props.playlist.id}/>})}
                 </div>
               </div>
             </div>

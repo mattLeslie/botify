@@ -23,18 +23,18 @@ const LandingPage = () => {
             <p>&bull; Customize your playlist behavior</p>
             <div className="flex items-center">
               <input className="mr-4 h-4 w-4" type="checkbox" id="terms" name="terms" />
-              <p className="relative">I agree to the&nbsp;
+              <div className="relative">I agree to the&nbsp;
                 <span className="cursor-pointer font-thin underline hover:text-green-400"
                   onMouseEnter={() => { setRevealTerms(true) }}
                   onMouseLeave={() => { setRevealTerms(false) }}
                 >
                   terms and conditions.
                 </span>
-                {revealTerms ? <div className="top-[100%] pt-2 absolute flex flex-col font-thin">
+                {revealTerms ? <p className="top-[100%] pt-2 absolute flex flex-col font-thin">
                   <p>&bull; Don't spam API requests!</p>
                   <p>&bull; Have fun :)</p>
-                </div> : <></>}
-              </p>
+                </p> : <></>}
+              </div>
             </div>
           </div>
           <div className="flex justify-center">

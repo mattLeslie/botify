@@ -80,6 +80,27 @@ app.get('/getPlaylistTracks', async (req, res, next) => {
   }
 });
 
+
+app.post('/removeTracks', async (req, res, next) => {
+  console.log(`calling /removeTracks...`);
+
+  var data = JSON.parse(req.query.tracks)
+
+  const url = `https://api.spotify.com/v1/playlists/${req.query.id}/tracks`;
+  try {
+    const payload = await axios.delete(url, {
+      headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}`,
+                  'Content-Type': 'application/json'},
+      data
+    });
+    res.status(200);
+    res.json({payload: payload.data });
+
+  } catch (err) {
+    next(err)
+  }
+});
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   // Handle the error here

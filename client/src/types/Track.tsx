@@ -10,7 +10,8 @@ type Track = {
     name: string;
     added_at: string;
     added_by: string;
-
+    // needed for deletion, etc.
+    uri: string;
     // allows listening to 30 second playback in browser
     preview_url: string;
 }

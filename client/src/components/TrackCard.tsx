@@ -6,9 +6,30 @@ moment().format();
 
 type TrackCardProps = {
     track: Track;
+    playlist_id: string;
 }
 
+
 const TrackCard = (props: TrackCardProps) => {
+
+    const deleteTrack = async () => {
+
+        const data = {
+            tracks: [{uri: props.track.uri}],
+        };
+        try {
+            const response = await fetch(`/removeTracks?id=${props.playlist_id}&tracks=${JSON.stringify(data)}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json',},
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok. Code: ' + response.status);
+            }
+            const jsonData = await response.json();
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     const calculateDiff = () => {
         let now = moment();
@@ -53,7 +74,7 @@ const TrackCard = (props: TrackCardProps) => {
                         <div className="h-[100%] line-clamp-1 font-thin">Added by {props.track.added_by}</div>
                         <div className="h-[100%] line-clamp-1 font-thin">{calculateDiff()}</div>
                     </div>
-                    <div className="flex items-center mx-2">
+                    <div onClick={deleteTrack} className="flex items-center mx-2">
                         <div className="cursor-pointer flex flex-col items-center border-2 border-red-200 rounded-lg 
                                         text-center hover:bg-red-200 text-red-300 p-1 hover:text-red-500 active:opacity-50 transition">
                             <div className="font-light text-[24px]">&#9253; </div>
