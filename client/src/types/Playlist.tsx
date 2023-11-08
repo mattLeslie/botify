@@ -2,7 +2,8 @@ type Playlist = {
     id: string;
     name: string;
     image_url: string;
-    owner: string[];
+    collaborative: boolean;
+    owner: string;
   }
   
 

@@ -16,6 +16,9 @@ const TrackCard = (props: TrackCardProps) => {
     const [deleted, setDeleted] = useState<boolean>(false)
 
     const handleDelete = () =>{
+        if(!window.confirm("Are you sure you want to delete this track?")){
+            return;
+        }    
         props.deleteTrack();
         setDeleted(true);
     }

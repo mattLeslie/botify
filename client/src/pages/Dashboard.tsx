@@ -51,10 +51,12 @@ const Dashboard = () => {
 
     const playlistArray = items.map((item: any) => {
       let playlist = {} as Playlist;
+      console.log(item)
       playlist.image_url = item.images[0].url;
       playlist.name = item.name;
       playlist.id = item.id;
-
+      playlist.collaborative = item.collaborative as boolean;
+      playlist.owner = item.owner.display_name;
       return <PlaylistCard playlist={playlist} selectCard={setSelectedPlaylist}/>;
     })
     setPlaylistCards(playlistArray);

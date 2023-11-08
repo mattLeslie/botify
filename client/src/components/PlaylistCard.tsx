@@ -1,8 +1,8 @@
 // displays playlist image and title
 // internally contains the playlist id
 
-import { useEffect, useState } from "react";
 import Playlist from "../types/Playlist";
+import UsersIcon from "../static/users-solid.svg";
 
 type PlaylistCardProps = {
   playlist: Playlist;
@@ -10,6 +10,8 @@ type PlaylistCardProps = {
 }
 
 const PlaylistCard = (props: PlaylistCardProps) => {
+
+  console.log(props.playlist.collaborative)
 
   return (
     <div className='w-[100%] h-[100%] m-auto'>

@@ -74,7 +74,7 @@ against current spotify data
 1. ~~Stop my node server from crashing all the time~~
 2. ~~Style login page~~
 3. ~~Center and embiggen loading spinners~~
-4. Allow songs to be deleted from playlists (and update client-cache)
+4. ~~Allow songs to be deleted from playlists (and update client-cache)~~
 5. Create the bot dashboard
 6. Add bot dashboard functionality
 7. ~~Restyle playlist selection dashboard~~

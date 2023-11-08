@@ -4,7 +4,6 @@
 import { useEffect, useState } from "react";
 import Playlist from "../types/Playlist";
 import Track from "../types/Track";
-import { MoonLoader } from "react-spinners";
 import Artist from "../types/Artist";
 import Album from "../types/Album";
 import exit_button_img from "../static/exit_button.svg";
@@ -30,10 +29,6 @@ const PlaylistControl = (props: PlaylistControlProps) => {
   }, []);
 
   const deleteTrack = async (uri: string) => {
-
-    if(!window.confirm("Are you sure you want to delete this track?")){
-        return;
-    }
 
     const data = {
         tracks: [{uri: uri}],
@@ -176,7 +171,7 @@ const PlaylistControl = (props: PlaylistControlProps) => {
                 </div>
                 <div className="flex flex-row justify-between items-center w-[95%]">
                   <p className="text-2xl font-light">Tracks</p>
-                  <input placeholder="Search..." type="text" id="search" name="search" className="outline-none focus:border-b focus:border-green-400 border-b-2 border-200-gray font-thin text-lg w-[25%]"/>
+                  <input placeholder="Search..." type="text" id="search" name="search" className="outline-none focus:border-b focus:border-green-400 mb-1 border-b-2 border-200-gray font-thin text-lg w-[25%]"/>
                 </div>
                 <div className="w-[95%] overflow-scroll flex flex-col rounded-md border-2 divide-y border-400-gray">
                   {!tracks ? 
