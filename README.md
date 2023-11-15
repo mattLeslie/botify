@@ -80,12 +80,12 @@ against current spotify data
 7. ~~Restyle playlist selection dashboard~~
 8. ~~Apply consistent theming to whole app~~
 9. Make sure all data is being retrieved from API calls (side note: probably want to limit this to user input for songs etc.)
-10. Process playlist data to make sure that only playlists eligible for Botify are displayed (personally owned or collaborative)
+10. Process playlist data to make sure that only playlists eligible for Botify are displayed (personally owned or collaborative) NOTE: running into some weird bug where collaborative playlists are not reflected as such in the returned spotify data
 11. ~~Make playlist dashboard loading snappier (stop using useEffect and render the elements we already know first, use spinner for song list)~~
 12. ~~Add scroll to top when playlist dashboard is shown~~
 13. Make t&c button required on login page
 14. Fix the resizing bug on the dashboard when only one element is displayed during search
-15. Add collaborative banner to playlists
+15. Add collaborative banner to playlists NOTE: see above note
 16. Implement refresh token 
 
 
